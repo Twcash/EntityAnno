@@ -43,7 +43,7 @@ public class EntityAnnoPlugin implements Plugin<Project>{
         ext.getIsJitpack().convention(false);
 
         var fetchDir = project.getLayout().getBuildDirectory().dir("fetched");
-        var fetchComps = tasks.create("fetchComps", t -> {
+        var fetchComps = tasks.register("fetchComps", t -> {
             t.getInputs().property("version", project.provider(ext.getMindustryVersion()::get));
             t.getOutputs().dir(fetchDir);
 
@@ -109,7 +109,7 @@ public class EntityAnnoPlugin implements Plugin<Project>{
             });
         });
 
-        tasks.create("procComps", t -> t.doFirst(tt -> {
+        tasks.register("procComps", t -> t.doFirst(tt -> {
             var fetchPackage = ext.getFetchPackage().get();
             var files = new Fi(new File(fetchDir.get().getAsFile(), fetchPackage.replace('.', '/'))).list();
             for(var file : files){
@@ -157,7 +157,11 @@ public class EntityAnnoPlugin implements Plugin<Project>{
             });
 
             // Prevent running these tasks to speed up compile-time.
-            tasks.getByPath("checkKotlinGradlePluginConfigurationErrors").onlyIf(spec -> false);
+            var conf = tasks.findByPath("checkKotlinGradlePluginConfigurationErrors");
+            if(conf != null) {
+                conf.onlyIf(spec -> false);
+            }
+
             tasks.withType(KotlinCompile.class, t -> t.onlyIf(spec -> false));
         });
     }
