@@ -29,7 +29,7 @@ fun kotlinPlugin(module: String): String{
 
 fun commonPom(pom: MavenPom){
     pom.apply{
-        url = "https://github.com/GlennFolker/EntityAnno"
+        url = "https://github.com/GglLfr/EntityAnno"
         inceptionYear = "2024"
 
         licenses{
@@ -42,7 +42,7 @@ fun commonPom(pom: MavenPom){
 
         issueManagement{
             system = "GitHub Issue Tracker"
-            url = "https://github.com/GlennFolker/EntityAnno/issues"
+            url = "https://github.com/GglLfr/EntityAnno/issues"
         }
     }
 }
@@ -52,7 +52,7 @@ allprojects{
     apply(plugin = "maven-publish")
 
     sourceSets["main"].java.setSrcDirs(listOf(layout.projectDirectory.dir("src")))
-    group = "com.github.GlennFolker.EntityAnno"
+    group = "com.github.GglLfr.EntityAnno"
 
     repositories{
         google()
@@ -145,14 +145,14 @@ project(":entity"){
 project(":"){
     apply(plugin = "java-gradle-plugin")
 
-    group = "com.github.GlennFolker"
+    group = "com.github.GglLfr"
 
     lateinit var plugin: Provider<PluginDeclaration>
     gradlePlugin{
         isAutomatedPublishing = false
 
         plugin = plugins.register("entityAnno"){
-            id = "com.github.GlennFolker.EntityAnno"
+            id = "com.github.GglLfr.EntityAnno"
             displayName = "EntityAnno"
             description = "Utility tools for generating Mindustry custom entity component classes."
             implementationClass = "ent.EntityAnnoPlugin"
