@@ -52,7 +52,7 @@ allprojects{
     apply(plugin = "maven-publish")
 
     sourceSets["main"].java.setSrcDirs(listOf(layout.projectDirectory.dir("src")))
-    group = "com.github.GglLfr.EntityAnno"
+    group = "com.github.Twcash.EntityAnno"
 
     repositories{
         google()
